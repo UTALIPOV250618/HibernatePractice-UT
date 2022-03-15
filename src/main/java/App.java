@@ -11,8 +11,10 @@ public class App {
     public static void main( String[] args )
     {
 //        HibernateSessionFactoryUtil.getSessionFactory();
-        User user = new User("Ulukmyrza",30);
-        create(user);
+//        User user = new User("Nurlan",30);
+//        create(user);
+        System.out.println(getUserById(3));
+
 
     }
 
@@ -25,7 +27,16 @@ public class App {
      session.close();
      System.out.println("Successfully added: "+ user);
      return user.getId();
+ }
 
+ public static User getUserById(int id){
+
+        Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        User user = session.get(User.class,id);
+        session.getTransaction().commit();
+        session.close();
+        return user;
 
  }
 
